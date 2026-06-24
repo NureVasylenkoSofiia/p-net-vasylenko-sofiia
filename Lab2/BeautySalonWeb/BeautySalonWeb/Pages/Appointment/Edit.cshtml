@@ -1,0 +1,45 @@
+﻿@page "{id:int}"
+@model BeautySalonWeb.Pages.Appointment.EditModel
+@{
+    ViewData["Title"] = "Керування статусом";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-warning text-dark py-3">
+                    <h5 class="m-0 fw-bold"><i class="bi bi-pencil-square"></i> Зміна статусу візиту № @Model.Appointment.Id</h5>
+                </div>
+                <div class="card-body p-4">
+
+                    <div class="alert alert-info mb-4">
+                        <strong>Клієнт:</strong> @Model.Appointment.Client?.FullName <br />
+                        <strong>Майстер:</strong> @Model.Appointment.Master?.FullName <br />
+                        <strong>Дата:</strong> @Model.Appointment.AppointmentDate.ToString("dd.MM.yyyy HH:mm")
+                    </div>
+
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <input type="hidden" asp-for="Appointment.Id" />
+                        <input type="hidden" asp-for="Appointment.ClientId" />
+                        <input type="hidden" asp-for="Appointment.MasterId" />
+                        <input type="hidden" asp-for="Appointment.AppointmentDate" />
+
+                        <div class="form-group mb-4">
+                            <label asp-for="Appointment.Status" class="form-label fw-bold">Оберіть актуальний статус</label>
+                            <select asp-for="Appointment.Status" class="form-select fw-bold text-secondary" asp-items="Model.StatusList"></select>
+                            <span asp-validation-for="Appointment.Status" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Назад</a>
+                            <button type="submit" class="btn btn-warning px-4 fw-bold">Оновити статус</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

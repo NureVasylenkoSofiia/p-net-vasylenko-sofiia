@@ -1,0 +1,69 @@
+﻿@page
+@model BeautySalonWeb.Pages.Master.IndexModel
+@{
+    ViewData["Title"] = "Наші майстри";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary fw-bold">
+            <i class="bi bi-person-badge"></i> Персонал салону
+        </h2>
+        <a asp-page="Create" class="btn btn-success shadow-sm">
+            <i class="bi bi-person-plus"></i> Додати майстра
+        </a>
+    </div>
+
+
+    <div class="card shadow border-0 rounded-3">
+        <div class="card-body p-0">
+            <table class="table table-hover table-striped mb-0 align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">ПІБ Майстра</th>
+                        <th>Телефон</th>
+                        <th>Статус / Додаткова інформація</th>
+                        <th class="text-end pe-4">Операції</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.MastersList != null && Model.MastersList.Any())
+                    {
+                        @foreach (var item in Model.MastersList)
+                        {
+                            <tr>
+                                <td class="fw-bold text-secondary ps-4">@item.FullName</td>
+                                <td><i class="bi bi-telephone text-muted me-2"></i>@item.Phone</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Information))
+                                    {
+                                        <span class="badge bg-warning text-dark p-2">
+                                            <i class="bi bi-award"></i> @item.Information
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted fs-7">Немає особливих відміток</span>
+                                    }
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-eye"></i> Картка майстра
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-4">
+                                <i class="bi bi-person-x fs-3"></i> <br /> Список майстрів порожній.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

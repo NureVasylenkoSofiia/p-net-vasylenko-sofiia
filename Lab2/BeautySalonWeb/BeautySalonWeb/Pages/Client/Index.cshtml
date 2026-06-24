@@ -1,0 +1,58 @@
+﻿@page
+@model BeautySalonWeb.Pages.Client.IndexModel
+@{
+    ViewData["Title"] = "База клієнтів";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary fw-bold">
+            <i class="bi bi-people"></i> Клієнти салону
+        </h2>
+        <a asp-page="Create" class="btn btn-success shadow-sm">
+            <i class="bi bi-person-plus"></i> Додати клієнта
+        </a>
+    </div>
+
+    <div class="card shadow border-0 rounded-3">
+        <div class="card-body p-0">
+            <table class="table table-hover table-striped mb-0 align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">ПІБ Клієнта</th>
+                        <th>Номер телефону</th>
+                        <th class="text-end pe-4">Операції</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ClientsList != null && Model.ClientsList.Any())
+                    {
+                        @foreach (var item in Model.ClientsList)
+                        {
+                            <tr>
+                                <td class="fw-bold text-secondary ps-4">@item.FullName</td>
+                                <td>
+                                    <i class="bi bi-telephone text-muted me-2"></i>@item.Phone
+                                </td>
+                                <td class="text-end pe-4">
+                                    <div class="btn-group" role="group">
+                                        <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Редагувати</a>
+                                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Видалити</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-4">
+                                <i class="bi bi-person-x fs-3"></i> <br /> База клієнтів порожня.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

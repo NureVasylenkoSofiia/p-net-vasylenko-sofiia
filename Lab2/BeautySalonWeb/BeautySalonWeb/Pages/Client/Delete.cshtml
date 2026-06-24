@@ -1,0 +1,33 @@
+﻿@page "{id:int}"
+@model BeautySalonWeb.Pages.Client.DeleteModel
+@{
+    ViewData["Title"] = "Видалення клієнта";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-danger text-white py-3">
+                    <h5 class="m-0 fw-bold"><i class="bi bi-exclamation-triangle"></i> Видалення профілю!</h5>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <p class="fs-5 text-secondary">Акаунт клієнта буде видалено з системи назавжди.</p>
+
+                    <div class="bg-light p-3 rounded-3 mb-4 text-start border">
+                        <div class="mb-2"><strong>ПІБ клієнта:</strong> @Model.Client.FullName</div>
+                        <div><strong>Телефон:</strong> @Model.Client.Phone</div>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" asp-for="Client.Id" />
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Назад</a>
+                            <button type="submit" class="btn btn-danger px-4">Підтверджую видалення</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

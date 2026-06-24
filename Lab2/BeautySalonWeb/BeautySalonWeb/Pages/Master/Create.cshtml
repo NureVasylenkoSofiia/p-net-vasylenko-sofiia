@@ -1,0 +1,45 @@
+﻿@page
+@model BeautySalonWeb.Pages.Master.CreateModel
+@{
+    ViewData["Title"] = "Додати майстра";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="m-0 fw-bold"><i class="bi bi-person-plus-fill"></i> Додати нового майстра</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Master.FullName" class="form-label fw-bold">Повне ім'я (ПІБ)</label>
+                            <input asp-for="Master.FullName" class="form-control" placeholder="Наприклад: Коваленко Анна Олегівна" />
+                            <span asp-validation-for="Master.FullName" class="text-danger fs-7"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label asp-for="Master.Phone" class="form-label fw-bold">Номер телефону</label>
+                            <input asp-for="Master.Phone" class="form-control" placeholder="+380XXXXXXXXX" />
+                            <span asp-validation-for="Master.Phone" class="text-danger fs-7"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Назад</a>
+                            <button type="submit" class="btn btn-primary px-4">Зберегти майстра</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

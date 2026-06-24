@@ -1,0 +1,81 @@
+﻿@page "{appointmentId:int}"
+@model BeautySalonWeb.Pages.AppointmentDetail.IndexModel
+@{
+    ViewData["Title"] = "Деталі візиту";
+}
+
+<div class="container mt-4">
+    <div class="mb-3">
+        <a asp-page="/Appointment/Index" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left"></i> Повернутися до журналу візитів
+        </a>
+    </div>
+
+    <h2 class="text-primary fw-bold mb-4"><i class="bi bi-receipt"></i> Послуги у візиті № @Model.AppointmentId</h2>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-success text-white py-3">
+                    <h6 class="m-0 fw-bold"><i class="bi bi-plus-lg"></i> Додати послугу до чека</h6>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        <div class="form-group mb-4">
+                            <label class="form-label fw-bold">Оберіть послугу салону</label>
+                            <select asp-for="NewDetail.ServiceId" class="form-select" asp-items="Model.AvailableServices">
+                                <option value="">-- Оберіть процедуру --</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 shadow-sm fw-bold">
+                            Додати в замовлення
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow border-0 rounded-3">
+                <div class="card-body p-0">
+                    <table class="table table-hover table-striped mb-0 align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="ps-4">Назва наданої послуги</th>
+                                <th class="text-end pe-4">Вартість</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.CurrentDetails != null && Model.CurrentDetails.Any())
+                            {
+                                decimal totalSum = 0;
+                                @foreach (var item in Model.CurrentDetails)
+                                {
+                                    if (item.Service != null) totalSum += item.Service.Price;
+
+                                    <tr>
+                                        <td class="fw-bold text-secondary ps-4">@item.Service?.Name</td>
+                                        <td class="text-end fw-bold pe-4 text-primary">@item.Service?.Price.ToString("F2") грн</td>
+                                    </tr>
+                                }
+                                <tr class="table-info fw-bold">
+                                    <td class="ps-4 fs-5 text-dark">Загальна вартість візиту:</td>
+                                    <td class="text-end pe-4 fs-5 text-dark">@totalSum.ToString("F2") грн</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="2" class="text-center text-muted py-4">
+                                        <i class="bi bi-cart-x fs-3"></i> <br /> До цього візиту ще не додано жодної послуги.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

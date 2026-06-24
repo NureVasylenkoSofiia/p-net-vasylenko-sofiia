@@ -1,10 +1,92 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Головна панель";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="text-center mb-5 p-4 bg-light rounded-3 shadow-sm border">
+        <h1 class="display-4 fw-bold text-primary"><i class="bi bi-gem"></i> BeautySalon</h1>
+        <hr class="my-4" style="max-width: 400px; margin: 0 auto;">
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 rounded-3 text-center transition-card">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="display-4 text-success mb-3">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <h4 class="card-title fw-bold text-dark">Клієнти</h4>
+                        <p class="card-text text-muted fs-7">Керування базою клієнтів салону, реєстрація, редагування та аудит видалення.</p>
+                    </div>
+                    <a asp-page="/Client/Index" class="btn btn-success w-100 mt-4 fw-bold">Відкрити базу</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 rounded-3 text-center transition-card">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="display-4 text-primary mb-3">
+                            <i class="bi bi-person-badge-fill"></i>
+                        </div>
+                        <h4 class="card-title fw-bold text-dark">Майстри</h4>
+                        <p class="card-text text-muted fs-7">Перегляд персоналу та перевірка автоматичних відміток від SQL-тригера ЛБ 1.</p>
+                    </div>
+                    <a asp-page="/Master/Index" class="btn btn-primary w-100 mt-4 fw-bold">Управління штатом</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 rounded-3 text-center transition-card">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="display-4 text-info mb-3">
+                            <i class="bi bi-scissors"></i>
+                        </div>
+                        <h4 class="card-title fw-bold text-dark">Послуги</h4>
+                        <p class="card-text text-muted fs-7">Ведення прейскуранту цін та тривалості процедур, додавання нових позицій.</p>
+                    </div>
+                    <a asp-page="/Service/Index" class="btn btn-info w-100 text-white mt-4 fw-bold">Прайс-лист</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow border-0 rounded-3 text-center border-start border-warning border-4 transition-card">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="display-4 text-warning mb-3">
+                            <i class="bi bi-calendar3"></i>
+                        </div>
+                        <h4 class="card-title fw-bold text-dark">Журнал візитів</h4>
+                        <p class="card-text text-muted fs-7">Центральний модуль системи: запис клієнтів, призначення майстрів та зміна статусів.</p>
+                    </div>
+                    <a asp-page="/Appointment/Index" class="btn btn-warning text-dark w-100 mt-4 fw-bold shadow-sm">
+                        <i class="bi bi-box-arrow-in-right"></i> Відкрити журнал
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
+<style>
+    .transition-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .transition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+
+    .fs-7 {
+        font-size: 0.9rem;
+    }
+</style>

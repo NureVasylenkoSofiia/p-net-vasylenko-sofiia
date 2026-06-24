@@ -1,0 +1,49 @@
+﻿@page
+@model BeautySalonWeb.Pages.Appointment.CreateModel
+@{
+    ViewData["Title"] = "Новий запис";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="m-0 fw-bold"><i class="bi bi-calendar-plus"></i> Створення нового запису</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Appointment.ClientId" class="form-label fw-bold">Оберіть клієнта</label>
+                            <select asp-for="Appointment.ClientId" class="form-select" asp-items="Model.ClientSelectList">
+                                <option value="">-- Оберіть клієнта зі списку --</option>
+                            </select>
+                            <span asp-validation-for="Appointment.ClientId" class="text-danger fs-7"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Appointment.MasterId" class="form-label fw-bold">Призначте майстра</label>
+                            <select asp-for="Appointment.MasterId" class="form-select" asp-items="Model.MasterSelectList">
+                                <option value="">-- Оберіть майстра зі списку --</option>
+                            </select>
+                            <span asp-validation-for="Appointment.MasterId" class="text-danger fs-7"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label asp-for="Appointment.AppointmentDate" class="form-label fw-bold">Дата та час візиту</label>
+                            <input asp-for="Appointment.AppointmentDate" class="form-control" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                            <span asp-validation-for="Appointment.AppointmentDate" class="text-danger fs-7"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Назад</a>
+                            <button type="submit" class="btn btn-primary px-4">Створити візит</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

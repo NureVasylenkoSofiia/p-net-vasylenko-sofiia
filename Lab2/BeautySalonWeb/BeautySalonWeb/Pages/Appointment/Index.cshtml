@@ -1,0 +1,80 @@
+﻿@page
+@model BeautySalonWeb.Pages.Appointment.IndexModel
+@{
+    ViewData["Title"] = "Журнал записів";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary fw-bold">
+            <i class="bi bi-calendar3"></i> Журнал записів візитів
+        </h2>
+        <a asp-page="Create" class="btn btn-success shadow-sm">
+            <i class="bi bi-calendar-plus"></i> Створити новий запис
+        </a>
+    </div>
+
+    <div class="card shadow border-0 rounded-3">
+        <div class="card-body p-0">
+            <table class="table table-hover table-striped mb-0 align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">№ Візиту</th>
+                        <th>Клієнт</th>
+                        <th>Майстер</th>
+                        <th>Дата та час</th>
+                        <th>Статус</th>
+                        <th class="text-end pe-4">Операції</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.AppointmentsList != null && Model.AppointmentsList.Any())
+                    {
+                        @foreach (var item in Model.AppointmentsList)
+                        {
+                            <tr>
+                                <td class="fw-bold ps-4">№ @item.Id</td>
+                                <td class="text-secondary fw-bold">@item.Client?.FullName</td>
+                                <td>@item.Master?.FullName</td>
+                                {
+                               
+                                }
+                                <td><i class="bi bi-clock me-1 text-muted"></i> @item.AppointmentDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>
+                                    @if (item.Status == "Завершено")
+                                    {
+                                        <span class="badge bg-success">Завершено</span>
+                                    }
+                                    else if (item.Status == "Скасовано")
+                                    {
+                                        <span class="badge bg-danger">Скасовано</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning text-dark">Очікується</span>
+                                    }
+                                </td>
+                                <td class="text-end pe-4">
+                                    <div class="btn-group">
+                                        <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Змінити статус</a>
+                                        <a asp-page="/AppointmentDetail/Index" asp-route-appointmentId="@item.Id" class="btn btn-outline-info btn-sm">
+                                            <i class="bi bi-list-task"></i> Послуги візиту
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                <i class="bi bi-calendar-x fs-3"></i> <br /> Журнал записів порожній.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

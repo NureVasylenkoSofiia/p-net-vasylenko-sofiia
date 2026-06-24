@@ -1,3 +1,8 @@
+using BeautySalonWeb.BLL.Interfaces;
+using BeautySalonWeb.BLL.Services;
+using BeautySalonWeb.DAL.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace BeautySalonWeb
 {
     public class Program
@@ -6,16 +11,21 @@ namespace BeautySalonWeb
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Services.AddDbContext<BeautySalonContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<IServiceService, ServiceService>();
+            builder.Services.AddScoped<IClientService, ClientService>();
+            builder.Services.AddScoped<IMasterService, MasterService>();
+            builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+            builder.Services.AddScoped<IAppointmentDetailService, AppointmentDetailService>();
+
             builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
